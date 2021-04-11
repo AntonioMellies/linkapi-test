@@ -1,7 +1,6 @@
-import { routes } from './index';
-import { Express, Router } from 'express'
+import { Router } from 'express'
 import { AbstractRouter } from '../common/abstract.router'
-import OpportunitiesService from '../services/opportunities.service'
+import OpportunitiesService from '../services/API/opportunities.service'
 
 
 class OpportunitiesRouter extends AbstractRouter {
