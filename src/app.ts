@@ -1,12 +1,33 @@
 import express from 'express'
 import { routes } from './routes/index';
+import { jobs } from './services/JOBS/index';
+import DataBase from './configs/database.config';
+class Application {
 
-const app = express()
-app.use(express.json())
+    public app: express.Application;
+    //private _db: DataBase;
 
-//Routers
-for (let router of routes) {
-    app.use(router.applyRoutes());
+    constructor() {
+        this.app = express();
+        this.app.use(express.json())
+
+        // this._db = new DataBase();
+        // this._db.createConnection();
+
+        this.jobs();
+        this.routes();
+    }
+
+    jobs() {
+        for (let job of jobs) {
+            job.execute();
+        }
+    }
+
+    routes() {
+        for (let router of routes) {
+            this.app.use(router.applyRoutes());
+        }
+    }
 }
-
-export { app }
+export default new Application();
