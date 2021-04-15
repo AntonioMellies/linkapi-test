@@ -7,6 +7,11 @@ export const environment = {
     database: {
         uri: process.env.DATABASE_URI || 'mongodb+srv://user:6yY38sZKRihPes11@cluster0.pxmno.mongodb.net/linkapi'
     },
+    jobs: {
+        pedido_integrate: {
+            cron: process.env.JOBS_PEDIDO_INTEGRATE_CRON || '0 1 * * *'
+        }
+    },
     pipedrive: {
         company_domain: process.env.PIPEDRIVE_COMPANY_DOMAIN || 'melliessa',
         api_token: process.env.PIPEDRIVE_API_TOKEN || "d6d8b0a1b38f1a52fbef86d0257c9ee0af33040d"
