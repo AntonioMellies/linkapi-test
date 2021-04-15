@@ -2,8 +2,7 @@ export const environment = {
     server: {
         port: process.env.SERVER_PORT || 3335,
         version: process.env.SERVER_VERSION || 'v1',
-        prefix: process.env.SERVER_PREFIX || 'api',
-        db_uri: ''
+        prefix: process.env.SERVER_PREFIX || 'api'
     },
     database: {
         uri: process.env.DATABASE_URI || 'mongodb+srv://user:6yY38sZKRihPes11@cluster0.pxmno.mongodb.net/linkapi'
