@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose';
+import mongoose from "mongoose";
 import { environment } from './environment.config';
 
 class DataBase {
@@ -8,9 +8,14 @@ class DataBase {
             useNewUrlParser: true,
             useUnifiedTopology: true
         }
-        mongoose.connect(environment.server.db_uri, options)
-            .then(conn => console.log(`CreateConnection DB_URI: ${environment.server.db_uri}`))
-            .catch(err => console.log(`CreateConnection DB_URI: ${err}`));
+        try {
+            mongoose.connect(environment.database.uri, options)
+                .then(conn => console.log(`Connection Create`))
+                .catch(err => console.log(`Database connection with error -> ${err}`));
+
+        } catch (err) {
+            console.error(err)
+        }
     }
 }
 

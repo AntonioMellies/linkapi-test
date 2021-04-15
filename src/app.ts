@@ -5,14 +5,14 @@ import DataBase from './configs/database.config';
 class Application {
 
     public app: express.Application;
-    //private _db: DataBase;
+    private _db: DataBase;
 
     constructor() {
         this.app = express();
         this.app.use(express.json())
 
-        // this._db = new DataBase();
-        // this._db.createConnection();
+        this._db = new DataBase();
+        this._db.createConnection();
 
         this.jobs();
         this.routes();
@@ -20,7 +20,7 @@ class Application {
 
     jobs() {
         for (let job of jobs) {
-            job.execute();
+            job.toSchedule()
         }
     }
 

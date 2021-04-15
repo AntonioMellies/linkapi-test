@@ -12,7 +12,7 @@ class OpportunitiesRouter extends AbstractRouter {
     }
 
     applyRoutes() {
-        this.router.get(`${this.basePath}`, OpportunitiesService.findAll);
+        this.router.get(`${this.basePath}`, OpportunitiesService.findAllResumeOpportunities);
 
         return this.router;
     }

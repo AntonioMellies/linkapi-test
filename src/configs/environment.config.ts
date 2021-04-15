@@ -5,6 +5,9 @@ export const environment = {
         prefix: process.env.SERVER_PREFIX || 'api',
         db_uri: ''
     },
+    database: {
+        uri: process.env.DATABASE_URI || 'mongodb+srv://user:6yY38sZKRihPes11@cluster0.pxmno.mongodb.net/linkapi'
+    },
     pipedrive: {
         company_domain: process.env.PIPEDRIVE_COMPANY_DOMAIN || 'melliessa',
         api_token: process.env.PIPEDRIVE_API_TOKEN || "d6d8b0a1b38f1a52fbef86d0257c9ee0af33040d"

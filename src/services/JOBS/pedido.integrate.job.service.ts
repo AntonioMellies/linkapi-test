@@ -3,20 +3,34 @@ import CreatePedidosBlingService from "../BING/pedidos/create.pedido.bling.servi
 import ListDealsPipedriveService from "../PIPEDRIVE/deals/list.deals.pipedrive.service";
 import moment from 'moment';
 import ListProductsPipedriveService from "../PIPEDRIVE/products/list.products.pipedrive.service";
+import OpportunitiesService from "../API/opportunities.service";
+import * as cron from 'node-cron'
+export class PedidoIntegrateJobService extends AbstractJob {
 
-class PedidoIntegrateJobService extends AbstractJob {
+    constructor(cron: string) {
+        super(cron)
+    }
+
+    toSchedule(): void {
+        console.info('Scehdule PedidoIntegrateJobService')
+        try {
+            cron.schedule(this.cron, () => { this.execute() }).start();
+        } catch (err) {
+            console.error(err)
+        }
+    }
 
     async execute(): Promise<void> {
         try {
+            console.info('Execute PedidoIntegrateJobService')
             const deals = await ListDealsPipedriveService.getDealsWonYesterday();
 
             for (const deal of deals[0]['deals']) {
                 const itens = await ListProductsPipedriveService.getProductsByDeals(deal['id'])
                 const pedidoJson = this.createIntegrationPedido(deal, itens)
-                console.log(pedidoJson)
                 CreatePedidosBlingService.create(pedidoJson);
             }
-
+            OpportunitiesService.insertOpportunities(deals[0])
         } catch (err) {
             throw new Error(err);
         }
@@ -49,5 +63,5 @@ class PedidoIntegrateJobService extends AbstractJob {
         }
         return itensList;
     }
+
 }
-export default new PedidoIntegrateJobService();

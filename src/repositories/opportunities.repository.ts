@@ -1,14 +1,23 @@
-import { Router } from 'express'
-import { AbstractRepository } from '../common/abstract.repository';
+import mongoose, { Model } from 'mongoose';
+import { IMongoRepository } from './interface.mongo.repository';
+import { Schema } from 'mongoose';
+class OpportunitiesRepository implements IMongoRepository {
 
-class OpportunitiesRouter extends AbstractRepository<any> {
+    model: Model<any>;
 
-    router = Router()
+    private schema = {
+        date: { type: Date },
+        deals: { type: Array },
+        totals: { type: Object }
+    }
 
     constructor() {
-        super('opportunities')
+        this.model = mongoose.model("opportunities", new Schema(this.schema));
     }
 
 }
 
-export default new OpportunitiesRouter();
+export default new OpportunitiesRepository();
+
+
+

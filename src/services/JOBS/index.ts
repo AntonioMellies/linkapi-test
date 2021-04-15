@@ -1,6 +1,6 @@
 import { AbstractJob } from '../../common/abstract.job'
-import PedidoIntegrateJobService from './pedido.integrate.job.service'
+import { PedidoIntegrateJobService } from './pedido.integrate.job.service'
 
 export const jobs: AbstractJob[] = [
-    PedidoIntegrateJobService
+    new PedidoIntegrateJobService('0 1 * * *')
 ]
